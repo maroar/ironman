@@ -1,3 +1,8 @@
+import qualified Data.List as L
+import qualified Data.Map  as M 
+import qualified Data.Set  as S
+-- on GHCI we can do: ":m + Data.Set Data.Map Data.List" to import the modules
+
 initials :: String -> String -> String  
 initials firstname lastname = [f] ++ ". " ++ [l] ++ "."  
     where (f:_) = firstname  
@@ -44,5 +49,9 @@ reverse' l = foldl (\acc x -> x : acc) [] l
 
 filter' :: (a -> Bool) -> [a] -> [a]
 filter' f = foldr (\x acc -> if (f x) then (x : acc) else acc) []
+
+
+
+
 
 
