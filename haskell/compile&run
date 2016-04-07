@@ -1,0 +1,6 @@
+Compilar (linux):
+ghc --make spoj_PAR.hs
+
+Executar (linux):
+cat in_PAR.txt | ./spoj_PAR
+
