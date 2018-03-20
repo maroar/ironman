@@ -33,3 +33,27 @@ data NestedList a = Elem a | List [NestedList a]
 flatten :: NestedList a -> [a]
 flatten (Elem a) = [a]
 flatten (List l) = foldr (\e acc -> (flatten e) ++ acc) [] l
+
+-- 8
+decide :: Eq a => a -> [a] -> [a] -> [a]
+decide e acc [] = e:acc
+decide e acc (h:t) = if (e == h) then (decide e acc t) else (decide h (e:acc) t) 
+
+compress :: Eq a => [a] -> [a]
+compress [] = []
+compress (h:t) = reverse $ decide h [] t 
+
+-- 9
+agregate :: Eq a => a -> ([a], [[a]]) -> [a] -> [[a]]
+agregate e (acc, total) [] = (e:acc):total
+agregate e (acc, total) (h:t) = if (e == h) then (agregate e (h:acc, total) t) else (agregate h ([], (e:acc):total) t) 
+
+pack :: Eq a => [a] -> [[a]]
+pack [] = []
+pack (h:t) = reverse $ agregate h ([], []) t
+
+-- 10
+encode :: Eq a => [a] -> [(Int, a)]
+encode = map (\e -> (length e, head e)) . pack
+
+
