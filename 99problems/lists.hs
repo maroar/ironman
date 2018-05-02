@@ -56,4 +56,27 @@ pack (h:t) = reverse $ agregate h ([], []) t
 encode :: Eq a => [a] -> [(Int, a)]
 encode = map (\e -> (length e, head e)) . pack
 
+-- 11
+data Multiplicity a = Multiple Int a | Single a deriving (Eq, Show)
 
+encodeModified :: Eq a => [a] -> [Multiplicity a]
+encodeModified = map (\(t, e) -> if t > 1 then (Multiple t e) else (Single e)) . encode
+
+-- 12
+translateMultiplicity :: Multiplicity a -> Int
+translateMultiplicity (Single _) = 1
+translateMultiplicity (Multiple n _) = n
+
+valueMultiplicity :: Multiplicity a -> a
+valueMultiplicity (Single e) = e
+valueMultiplicity (Multiple _ e) = e
+
+--decodeModified :: [Multiplicity a] -> [a]
+--decodeModified = map (\e -> (take valueMultiplicity e) $ repeat $ translateMultiplicity e) 
+
+-- 13
+
+-- 14
+dupli :: [a] -> [a]
+dupli [] = []
+dupli (h:t) = h:h:dupli t
